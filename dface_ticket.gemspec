@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = DfaceTicket::VERSION
   spec.authors       = ["pulsen"]
   spec.email         = ["hunag123qwe@126.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.summary       = %q{脸脸优惠券发布}
+  spec.description   = %q{脸脸优惠券发布}
   spec.homepage      = ""
   spec.license       = "MIT"
 
