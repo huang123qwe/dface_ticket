@@ -2,6 +2,7 @@ require "dface_ticket/version"
 require "dface_ticket/coupon"
 require "dface_ticket/coupon_down"
 require "dface_ticket/configure"
+require "dface_ticket/coupon_number"
 
 
 module DfaceTicket

@@ -21,20 +21,25 @@ module DfaceTicket
                   end
             end
 
+              def self.create(attributes={})
+                    crud_basic  do 
+                         RestClient.post("#{DfaceTicket.config.host}/api/coupons", attributes)
+                    end
+              end
+
+              def self.update(attributes={})
+                    crud_basic  do 
+                         RestClient.post("#{DfaceTicket.config.host}/api/coupons/#{attributes[:id]}", attributes)
+                    end
+              end
+
             def self.find_by_id(token, appid, coupon_id)
-                  begin
-                       coupon = JSON.parse(RestClient.get("#{DfaceTicket.config.host}/api/coupons/#{coupon_id}"))
-                       if coupon["errcode"] == "0"
-                          new(coupon["data"])
-                        else
-                            nil
-                        end
-                  rescue 
-                       nil
-                  end
+                    crud_basic  do 
+                         RestClient.get("#{DfaceTicket.config.host}/api/coupons/#{coupon_id}")
+                    end
             end
             
-#shop_id  发布的商家
+          #shop_id  发布的商家
            def download(token, appid, user_id,status_callback, out_indent = nil, shop_id=real_shop_id)
                   begin
                         out_indent = out_indent||"#{Time.now.to_i.to_s(36)}#{self.id}#{4.times.map{|m| rand(36).to_s(36)}.join}"
@@ -50,5 +55,14 @@ module DfaceTicket
                   end
             end
 
+             private
+                    def self.crud_basic(&block)
+                            begin
+                                 coupon = JSON.parse(block.call)
+                                 coupon["errcode"] == "0" ? new(coupon["data"]) : nil
+                            rescue 
+                                 nil
+                            end
+                    end 
       end
 end
