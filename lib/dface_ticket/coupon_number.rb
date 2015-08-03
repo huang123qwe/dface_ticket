@@ -7,11 +7,12 @@ module DfaceTicket
                   end
             end
 
-             def create(coupon_number_attributes)
+             def self.create(coupon_number_attributes)
                     begin
-                          JSON.parse(RestClient.post("#{DfaceTicket.config.host}/api/coupon_numbers", coupon_number_attributes))
-                           if coupons["errcode"] == "0"
-                                  DfaceTicket::CouponNumber.new(coupon_down["data"])
+                          coupon_number = JSON.parse(RestClient.post("#{DfaceTicket.config.host}/api/coupon_numbers", coupon_number_attributes))
+
+                           if coupon_number["errcode"] == "0"
+                                  DfaceTicket::CouponNumber.new(coupon_number["data"])
                            else
                                   nil
                            end
