@@ -44,6 +44,7 @@ module DfaceTicket
                   begin
                         out_indent = out_indent||"#{Time.now.to_i.to_s(36)}#{self.id}#{4.times.map{|m| rand(36).to_s(36)}.join}"
                         hash = {out_indent: out_indent, token: token, user_id: user_id, shop_id: shop_id, id: self.id, appid: appid, status_callback: status_callback}
+                        yield hash if block_given?
                         coupon_down = JSON.parse(RestClient.post("#{DfaceTicket.config.host}/api/coupon_downs", hash))
                         if coupon_down["errcode"] == "0"
                             DfaceTicket::CouponDown.new(coupon_down["data"])
